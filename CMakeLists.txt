@@ -20,10 +20,12 @@ if( MSVC )
 	set( CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup" )
 endif()
 
+set( OPENSSL_ROOT_DIR "C:\Program Files\OpenSSL" )
 set( OPENSSL_USE_STATIC_LIBS TRUE )
 if( MSVC )
 	set( OPENSSL_MSVC_STATIC_RT TRUE )
 endif()
+FindOpenSSL()
 find_package( OpenSSL REQUIRED )
 
 file( GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.hpp ${PROJECT_SOURCE_DIR}/src/*.qrc )
