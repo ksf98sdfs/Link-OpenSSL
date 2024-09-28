@@ -1,0 +1,40 @@
+name: Build Windows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  openssl_location: C:\Program Files\OpenSSL
+  BUILD_TYPE: Release
+  
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - uses: ilammy/msvc-dev-cmd@v1
+      - name: Install Ninja
+        shell: pwsh
+        run: |
+          choco install ninja
+          
+      - uses: actions/checkout@v4
+      - name: Build project
+        run: cmake -S . -B build -G "Ninja Multi-Config" && cmake --build build --config ${{ env.BUILD_TYPE }}
+        
+      - name: Run project
+        working-directory: build/${{ env.BUILD_TYPE }}
+        shell: cmd
+        run: Link-OpenSSL.exe
+        
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows-artifact
+          path: build/${{ env.BUILD_TYPE }}
+          if-no-files-found: ignore
+          retention-days: 0
