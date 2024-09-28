@@ -28,6 +28,7 @@ jobs:
         
       - name: Run project
         working-directory: build/${{ env.BUILD_TYPE }}
+        shell: cmd
         run: Link-OpenSSL.exe
         
       - name: Upload artifact
