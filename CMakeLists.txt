@@ -40,7 +40,7 @@ endif()
 
 # Link against the Qt libraries, and add required include directories and compile definitions.
 # target_link_libraries( ${library_name} PRIVATE ${OpenSSL_location}/lib/libcrypto_static.lib ${OpenSSL_location}/lib/libssl_static.lib crypt32.lib ws2_32.lib )
-target_link_libraries( ${library_name} PRIVATE ${OpenSSL_location}/lib/VC/static/libcrypto64MT.lib ${OpenSSL_location}/lib/VC/static/libssl64MT.lib crypt32.lib ws2_32.lib )
+target_link_libraries( ${library_name} PRIVATE ${OpenSSL_location}/lib/VC/static/libcrypto64MT.lib ${OpenSSL_location}/lib/VC/static/libssl64MT.lib crypt32.lib )
 
 # Include ${CMAKE_CURRENT_BINARY_DIR} for the generated header.
 target_include_directories( ${library_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${OpenSSL_location}/include )
