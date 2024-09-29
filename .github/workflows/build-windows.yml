@@ -21,8 +21,8 @@ jobs:
         shell: cmd
         run: |
           dir
-          dir /bin
-          dir /lib
+          dir bin
+          dir lib
         
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Install Ninja
