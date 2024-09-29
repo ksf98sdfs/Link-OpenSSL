@@ -37,8 +37,8 @@ EVP_PKEY *generate_key_pair() {
 
 int main()
 {
-  EVP_PKEY* generate_key_pair();
-  if (EVP_PKEY) {
+  EVP_PKEY* key = generate_key_pair();
+  if (key) {
     std::cout << "Generated key pairs!" << std::endl;
   } else {
     std::cout << "Error, could not generate key pairs." << std::endl;
