@@ -37,6 +37,11 @@ EVP_PKEY *generate_key_pair() {
 
 int main()
 {
+  OpenSSL_add_all_algorithms();
+  OPENSSL_cleanup();
+  
+  std::cout << "Hello, World!" << std::endl;
+  
   EVP_PKEY* key = generate_key_pair();
   if (key) {
     std::cout << "Generated key pairs!" << std::endl;
