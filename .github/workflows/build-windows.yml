@@ -16,6 +16,14 @@ jobs:
   build:
     runs-on: windows-2019
     steps:
+      - name: Check OpenSSL
+        working-directory: ${{ env.openssl_location }}
+        shell: cmd
+        run: |
+          dir
+          dir bin
+          dir lib
+        
       - uses: ilammy/msvc-dev-cmd@v1
       - name: Install Ninja
         shell: pwsh

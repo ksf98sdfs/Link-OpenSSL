@@ -9,6 +9,8 @@ set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS OFF )
 
+set( OpenSSL_location "C:/Program Files/OpenSSL" )
+
 # Enable static linkage of runtime on MSVC
 if( MSVC )
   set( CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded" )
@@ -20,16 +22,11 @@ if( MSVC )
 	set( CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup" )
 endif()
 
-set( OPENSSL_USE_STATIC_LIBS TRUE )
-if( MSVC )
-	set( OPENSSL_MSVC_STATIC_RT TRUE )
-endif()
-find_package( OpenSSL REQUIRED )
-
 file( GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.hpp ${PROJECT_SOURCE_DIR}/src/*.qrc )
 
 if( CMAKE_SYSTEM_NAME STREQUAL "Windows" )
-	add_executable( ${library_name} WIN32 ${SRC_FILES} )
+	add_executable( ${library_name} ${SRC_FILES} )
+ 	# add_executable( ${library_name} WIN32 ${SRC_FILES} )
 elseif( CMAKE_SYSTEM_NAME STREQUAL "Linux" )
 	add_executable( ${library_name} ${SRC_FILES} )
 elseif( CMAKE_SYSTEM_NAME STREQUAL "Darwin" )
@@ -42,7 +39,8 @@ if ( MSVC )
 endif()
 
 # Link against the Qt libraries, and add required include directories and compile definitions.
-target_link_libraries( ${library_name} PRIVATE OpenSSL::Crypto OpenSSL::SSL )
+# target_link_libraries( ${library_name} PRIVATE ${OpenSSL_location}/lib/libcrypto_static.lib ${OpenSSL_location}/lib/libssl_static.lib crypt32.lib ws2_32.lib )
+target_link_libraries( ${library_name} PRIVATE ${OpenSSL_location}/lib/VC/static/libcrypto64MT.lib ${OpenSSL_location}/lib/VC/static/libssl64MT.lib crypt32.lib ws2_32.lib )
 
 # Include ${CMAKE_CURRENT_BINARY_DIR} for the generated header.
-target_include_directories( ${library_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} )
+target_include_directories( ${library_name} PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${OpenSSL_location}/include )
