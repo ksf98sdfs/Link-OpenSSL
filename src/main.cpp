@@ -4,6 +4,7 @@
 #include <openssl/conf.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
+#include <windows.h>
 
 EVP_PKEY *generate_key_pair() {
     EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, nullptr);
@@ -37,6 +38,7 @@ EVP_PKEY *generate_key_pair() {
 
 int main()
 {
+  Sleep(5000);
   OpenSSL_add_all_algorithms();
   OPENSSL_cleanup();
   
