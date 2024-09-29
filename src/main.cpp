@@ -1,5 +1,9 @@
 #include <iostream>
+#include <openssl/ssl.h>
+#include <openssl/err.h>
+#include <openssl/conf.h>
 #include <openssl/evp.h>
+#include <openssl/rand.h>
 
 EVP_PKEY *generate_key_pair() {
     EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, nullptr);
